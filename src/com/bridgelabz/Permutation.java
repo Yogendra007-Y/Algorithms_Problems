@@ -1,36 +1,38 @@
 package com.bridgelabz;
-class BinarySearch<T extends Comparable<T>> {
+class BubbleSort<T extends Comparable<T>> {
+    /**
+     * Sort the array
+     * @param arr of String
+     */
+    public void bubbleSort(T arr[]) {
+        int n = arr.length;
+        for (int i = 0; i < n - 1; i++)
+            for (int j = 0; j < n - i - 1; j++)
+                if (arr[j].compareTo(arr[j + 1]) > 0) {
+                    T temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+    }
 
     /**
-     * This method search the word from list of words
-     * @ arr - Takes String type of array
-     * @ x - The key to be found
-     * @ return
+     * Prints the array
+     * @param arr of number
      */
-    public int binarySearch(T [] arr, T x) {
-        int l = 0, r = arr.length - 1;
-        while (l <= r) {
-            int m = l + (r - l) / 2;
-            int res = x.compareTo(arr[m]);
-            if (res == 0)
-                return m;
-            if (res > 0)
-                l = m + 1;
-            else
-                r = m - 1;
-        }
-        return -1;
+    public void printArray(T[] arr) {
+        int n = arr.length;
+        for (int i = 0; i < n; ++i)
+            System.out.print(arr[i] + "--->");
+        System.out.println();
     }
 }
-class BinarySearchMain {
-    public static void main(String[] args) {
-        String[] arr = { "contribute", "geeks", "yogendra", "practice" };
-        String x = "yogendra";
-        BinarySearch<String> bs = new BinarySearch<String>();
-        int result = bs.binarySearch(arr, x);
-        if (result == -1)
-            System.out.println("Element is not present");
-        else
-            System.out.println("Element found at " + "index " + result);
+class BubbleSortMain {
+    public static void main(String args[]) {
+        String arr[] = { "xyz", "pqr", "abc", "qwe", "cba" };
+        BubbleSort<String> ob = new BubbleSort<String>();
+        ob.bubbleSort(arr);
+        System.out.print("Sorted array : ");
+        ob.printArray(arr);
     }
 }
+
