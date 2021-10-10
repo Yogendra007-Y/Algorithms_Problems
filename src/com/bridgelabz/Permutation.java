@@ -1,34 +1,38 @@
 package com.bridgelabz;
-import java.util.Arrays;
+import java.util.Scanner;
 
-class InsertionSort {
+class PrimeNumbers {
     public static void main(String[] args) {
-        int arr[] = { 12, 11, 13, 5, 6 };
-        sort(arr);
-        printArray(arr);
+        Scanner sc = new Scanner(System.in);
+        int upper, lower;
+        //Taking limit from the user
+        System.out.print("Enter the lower bound : ");
+        lower = sc.nextInt();
+        System.out.print("Enter the upper bound : ");
+        upper = sc.nextInt();
+        System.out.println("Prime numbers between " + lower + " and " + "upper  " + upper + "is : ");
+        isprime(lower, upper);
+        sc.close();
     }
-
-    /* This Method is used to print the array */
-    private static void printArray(int[] arr) {
-        int length = arr.length;
-        System.out.print("Array after sorting is : ");
-        for (int i = 0; i < length; ++i) {
-            System.out.print(arr[i] + " ");
-        }
-    }
-
-    /* This  Method is used to sort the array in ascending order */
-    private static void sort(int[] arr) {
-        int length = arr.length;
-        for (int i = 1; i < length; ++i) {
-            int key = arr[i];
-            int j = i - 1;
-            while (j >= 0 && arr[j] > key) {
-                arr[j + 1] = arr[j];
-                j = j - 1;
+    /**
+     *  Purpose : Method to find prime numbers between given range
+     * @Param lower for lower limit
+     * @Param upper for upper limit
+     */
+    private static void isprime(int lower, int upper) {
+        int i, flag, j;
+        for (i = lower; i <= upper; i++) {
+            if (i == 1 || i == 0)
+                continue;
+            flag = 1;
+            for (j = 2; j <= i / 2; ++j) {
+                if (i % j == 0) {
+                    flag = 0;
+                    break;
+                }
             }
-            arr[j + 1] = key;
+            if (flag == 1)
+                System.out.println(i);
         }
-
     }
 }
