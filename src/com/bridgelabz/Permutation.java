@@ -1,40 +1,36 @@
 package com.bridgelabz;
-import java.util.Scanner;
+class BinarySearch<T extends Comparable<T>> {
 
-public class Permutation {
-
-    public static void solution(String str){
-        int n = str.length();
-        int f = factorial(n);
-
-        for (int i=0; i<f; i++){
-            StringBuilder sb = new StringBuilder(str);
-            int temp = i;
-            for (int div=n; div>=1; div--){
-                int q = temp / div;
-                int r = temp % div;
-
-                System.out.print(sb.charAt(r));
-                sb.deleteCharAt(r);
-
-                temp = q;
-            }
-            System.out.println();
+    /**
+     * This method search the word from list of words
+     * @ arr - Takes String type of array
+     * @ x - The key to be found
+     * @ return
+     */
+    public int binarySearch(T [] arr, T x) {
+        int l = 0, r = arr.length - 1;
+        while (l <= r) {
+            int m = l + (r - l) / 2;
+            int res = x.compareTo(arr[m]);
+            if (res == 0)
+                return m;
+            if (res > 0)
+                l = m + 1;
+            else
+                r = m - 1;
         }
+        return -1;
     }
-    public static int factorial(int n){
-        int val = 1;
-        for (int i=2; i<=n; i++){
-            val *= i;
-        }
-        return val;
-    }
-
+}
+class BinarySearchMain {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter a string to return its permutation : ");
-        String str = scanner.next();
-        solution(str);
-
+        String[] arr = { "contribute", "geeks", "yogendra", "practice" };
+        String x = "yogendra";
+        BinarySearch<String> bs = new BinarySearch<String>();
+        int result = bs.binarySearch(arr, x);
+        if (result == -1)
+            System.out.println("Element is not present");
+        else
+            System.out.println("Element found at " + "index " + result);
     }
 }
