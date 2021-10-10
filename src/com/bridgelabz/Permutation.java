@@ -1,38 +1,83 @@
 package com.bridgelabz;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-class PrimeNumbers {
+
+class SortGenerics {
+    static   Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int upper, lower;
-        //Taking limit from the user
-        System.out.print("Enter the lower bound : ");
-        lower = sc.nextInt();
-        System.out.print("Enter the upper bound : ");
-        upper = sc.nextInt();
-        System.out.println("Prime numbers between " + lower + " and " + "upper  " + upper + "is : ");
-        isprime(lower, upper);
-        sc.close();
+        System.out.println("Enter 1 to Sort String type (insertion  sort)");
+        System.out.println("Enter 2 to sort Integer type(Bubble Sort)");
+        switch(scanner.nextInt()){
+            case 1:
+                SortGenerics.stringSort();
+                break;
+            case 2:
+                SortGenerics.integerSort();
+                break;
+        }
+
     }
-    /**
-     *  Purpose : Method to find prime numbers between given range
-     * @Param lower for lower limit
-     * @Param upper for upper limit
-     */
-    private static void isprime(int lower, int upper) {
-        int i, flag, j;
-        for (i = lower; i <= upper; i++) {
-            if (i == 1 || i == 0)
-                continue;
-            flag = 1;
-            for (j = 2; j <= i / 2; ++j) {
-                if (i % j == 0) {
-                    flag = 0;
-                    break;
-                }
+
+    private static void integerSort() {
+        List<Integer> list = new ArrayList<Integer>();
+        System.out.println("Size of the list");
+        int number = scanner.nextInt();
+        System.out.println("Enter "+number+"  to Sort");
+        for (int i = 0; i < number; i++){
+            Integer input = scanner.nextInt();
+            list.add(input);
+        }
+        Integer[] intArray= new Integer[list.size()];
+        intArray=list.toArray(intArray);
+        System.out.println("Before sorting:");
+        for (int i = 0; i < intArray.length; i++)
+        {
+            System.out.print("  "+intArray[i]);
+        }
+        sorting(intArray);
+    }
+
+    private static void stringSort() {
+        List<String> list = new ArrayList<String>();
+        System.out.println("Size of the list");
+        int number = scanner.nextInt();
+        System.out.println("Enter "+number+"   Strings to Sort");
+        for (int i = 0; i < number; i++){
+            String input = scanner.next();
+            list.add(input);
+        }
+        String[] stringArray= new String[list.size()];
+        stringArray=list.toArray(stringArray);
+        System.out.println("Before sorting:");
+        for (int i = 0; i < stringArray.length; i++)
+        {
+            System.out.print("  "+stringArray[i]);
+        }
+        sorting(stringArray);
+    }
+
+    private static <T extends Comparable<T>> void sorting(T[] sortArray) {
+        int length=sortArray.length;
+        int j;
+        T temp;
+        for(int i=0;i<length;i++)
+        {
+            j=i;
+            temp = sortArray[i];
+            while(j>0&&temp.compareTo(sortArray[j-1])<0)
+            {//
+                sortArray[j]=sortArray[j-1];
+                j=j-1;
             }
-            if (flag == 1)
-                System.out.println(i);
+            sortArray[j]=temp;//insert unsorted element
+        }
+        System.out.println("\nSorted Array:");
+        for (int i = 0; i < sortArray.length; i++)
+        {
+            System.out.print("  "+sortArray[i]);
         }
     }
 }
